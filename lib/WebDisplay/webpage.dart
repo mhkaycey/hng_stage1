@@ -10,9 +10,40 @@ class WebPage extends StatefulWidget {
 }
 
 class _WebPageState extends State<WebPage> {
-  final controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.disabled)
-    ..loadRequest(Uri.parse('https://github.com/mhkaycey'));
+  late final WebViewController controller;
+  var loadingPrecentage = 0;
+  // final controller = WebViewController()
+  //   ..setJavaScriptMode(JavaScriptMode.disabled)
+  //   ..loadRequest(Uri.parse('https://github.com/mhkaycey'));
+
+  @override
+  void initState() {
+    controller = WebViewController()
+      ..loadRequest(
+        Uri.parse('https://github.com/mhkaycey'),
+      );
+    controller.setNavigationDelegate(
+      NavigationDelegate(
+        onPageStarted: (url) {
+          setState(() {
+            loadingPrecentage = 0;
+          });
+        },
+        onProgress: (progress) {
+          setState(() {
+            loadingPrecentage = progress;
+          });
+        },
+        onPageFinished: (url) {
+          setState(() {
+            loadingPrecentage = 100;
+          });
+        },
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -60,7 +91,15 @@ class _WebPageState extends State<WebPage> {
           ),
         ],
       ),
-      body: WebViewWidget(controller: controller),
+      body: Stack(
+        children: [
+          WebViewWidget(controller: controller),
+          if (loadingPrecentage < 100)
+            LinearProgressIndicator(
+              value: loadingPrecentage / 100.0,
+            )
+        ],
+      ),
     );
   }
 }
