@@ -49,7 +49,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Slack Name: Henry",
+                    "Slack Name: mhkaycey",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -74,10 +74,10 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [],
-            ),
+            // const Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [],
+            // ),
             InkWell(
               onTap: () => Navigator.push(
                 context,
