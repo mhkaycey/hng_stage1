@@ -19,6 +19,7 @@ class _WebPageState extends State<WebPage> {
   @override
   void initState() {
     controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(
         Uri.parse('https://github.com/mhkaycey'),
       );
