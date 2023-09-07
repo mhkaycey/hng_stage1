@@ -97,6 +97,7 @@ class _WebPageState extends State<WebPage> {
           if (loadingPrecentage < 100)
             LinearProgressIndicator(
               value: loadingPrecentage / 100.0,
+              color: Colors.amber,
             )
         ],
       ),
